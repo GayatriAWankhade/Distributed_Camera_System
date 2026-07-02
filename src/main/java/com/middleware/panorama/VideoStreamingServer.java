@@ -80,6 +80,7 @@ public class VideoStreamingServer {
         server.createContext("/play", new CommonHandlers.PlayerPageHandler());
         server.createContext("/meta", new CommonHandlers.MetaHandler(port, cameraNames,
                 TARGET_WIDTH, TARGET_HEIGHT, OVERLAP_PX));
+        server.createContext("/angles", new CommonHandlers.AnglesHandler(cameraNames));
 
         server.setExecutor(Executors.newFixedThreadPool(4));
         server.start();
@@ -87,6 +88,7 @@ public class VideoStreamingServer {
         System.out.println("Server started on port " + port);
         System.out.println("Streamed data  →  http://localhost:" + port + "/play");
         System.out.println("Metadata       →  http://localhost:" + port + "/meta");
+        System.out.println("Camera angles  →  http://localhost:" + port + "/angles");
         printNetworkAddresses(port);
     }
 

@@ -63,6 +63,7 @@ mvn exec:java -Dexec.mainClass="com.middleware.panorama.CameraStreamingServer" -
 | `/play`     | HTML player page (full-viewport panorama viewer) |
 | `/stitch`   | MJPEG stream of the stitched panorama            |
 | `/meta`     | Camera layout metadata as JSON                   |
+| `/angles`   | Camera labels and viewing angles as JSON         |
 | `/snapshot` | Single JPEG frame (camera server only)           |
 
 ### Client (download a stream)

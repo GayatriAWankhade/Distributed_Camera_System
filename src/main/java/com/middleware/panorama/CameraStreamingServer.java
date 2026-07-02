@@ -96,6 +96,7 @@ public class CameraStreamingServer {
         server.createContext("/play", new CommonHandlers.PlayerPageHandler());
         server.createContext("/meta", new CommonHandlers.MetaHandler(
                 port, cameraNames, TARGET_WIDTH, TARGET_HEIGHT, OVERLAP_PX));
+        server.createContext("/angles", new CommonHandlers.AnglesHandler(cameraNames));
         server.createContext("/snapshot", new SnapshotHandler(captures));
 
         server.setExecutor(Executors.newFixedThreadPool(4));
@@ -106,6 +107,7 @@ public class CameraStreamingServer {
         System.out.println("MJPEG stream    →  http://localhost:" + port + "/stitch");
         System.out.println("Single snapshot →  http://localhost:" + port + "/snapshot");
         System.out.println("Metadata        →  http://localhost:" + port + "/meta");
+        System.out.println("Camera angles   →  http://localhost:" + port + "/angles");
         printNetworkAddresses(port);
 
         HttpServer finalServer = server;

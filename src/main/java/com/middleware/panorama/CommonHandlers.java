@@ -30,6 +30,37 @@ public final class CommonHandlers {
     }
 
     // -----------------------------------------------------------------
+    //  /angles — serves camera angles JSON
+    // -----------------------------------------------------------------
+
+    static class AnglesHandler implements HttpHandler {
+        private final String[] cameraNames;
+
+        AnglesHandler(String[] cameraNames) {
+            this.cameraNames = cameraNames;
+        }
+
+        @Override
+        public void handle(HttpExchange ex) throws IOException {
+            if (!"GET".equalsIgnoreCase(ex.getRequestMethod())) {
+                ex.sendResponseHeaders(405, -1);
+                return;
+            }
+
+            String json = CameraAngleBuilder.buildAnglesJson(cameraNames);
+
+            byte[] body = json.getBytes("UTF-8");
+            ex.getResponseHeaders().set("Content-Type",
+                    "application/json; charset=UTF-8");
+            ex.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+            ex.sendResponseHeaders(200, body.length);
+            try (OutputStream os = ex.getResponseBody()) {
+                os.write(body);
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------
     //  /meta — serves camera-layout JSON
     // -----------------------------------------------------------------
 
