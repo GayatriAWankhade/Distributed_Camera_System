@@ -36,8 +36,18 @@ class MetaBuilderTest {
     @Test
     void buildJson_firstCameraAtOrigin() {
         String json = MetaBuilder.buildJson("http://localhost:9090", NAMES, 640, 360, 80);
-        // front camera: x=0, w=640
-        assertTrue(json.contains("\"front\": {\n      \"x\": 0"));
+        // front camera: angle=0, x=0, w=640
+        assertTrue(json.contains("\"front\": {\n      \"angle_degrees\": 0,\n      \"x\": 0"));
+    }
+
+    @Test
+    void buildJson_containsAnglesInDegrees() {
+        String json = MetaBuilder.buildJson("http://localhost:9090", NAMES, 640, 360, 80);
+        // front=0, rear=180, left=270, right=90
+        assertTrue(json.contains("\"front\": {\n      \"angle_degrees\": 0"), "front angle");
+        assertTrue(json.contains("\"rear\": {\n      \"angle_degrees\": 180"), "rear angle");
+        assertTrue(json.contains("\"left\": {\n      \"angle_degrees\": 270"), "left angle");
+        assertTrue(json.contains("\"right\": {\n      \"angle_degrees\": 90"), "right angle");
     }
 
     @Test
