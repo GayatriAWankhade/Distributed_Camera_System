@@ -37,8 +37,10 @@ public final class MetaBuilder {
         for (int i = 0; i < N; i++) {
             int x = StitchingCore.cameraX(i, targetWidth, overlap);
             int w = StitchingCore.cameraVisibleWidth(i, targetWidth, overlap, panoW);
+            int angle = CameraAngleBuilder.getCenterAngle(names[i].toLowerCase(), i, N);
 
             sb.append("    \"").append(names[i]).append("\": {\n");
+            sb.append("      \"angle_degrees\": ").append(angle).append(",\n");
             sb.append("      \"x\": ").append(x).append(",\n");
             sb.append("      \"y\": 0,\n");
             sb.append("      \"w\": ").append(w).append(",\n");
